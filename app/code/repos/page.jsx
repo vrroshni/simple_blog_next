@@ -3,15 +3,19 @@ import React from 'react'
 import { FaStar, FaCodeBranch, FaEye } from 'react-icons/fa'
 
 async function fetChRepos() {
-    const respose = await fetch('https://api.github.com/users/vrroshni/repos')
+    const respose = await fetch('https://api.github.com/users/vrroshni/repos',{
+        next:{
+            revalidate:60,
+        },
+    })
+
     // #wait 1 second
-    await new Promise((resolve)=>setTimeout(resolve,1000))
+
     return await respose.json();
 }
 
 const ReposPage = async () => {
     const repos = await fetChRepos()
-    console.log(repos, 'hhhhhhhhhh')
     return (
         <div className='repos-container'>
             <h2>Repositories</h2>
